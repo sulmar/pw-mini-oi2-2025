@@ -13,7 +13,7 @@ git clone https://github.com/sulmar/pw-mini-io2-2025
 ```
 
 ## Zakres
-1. Wprowadzenie Git (init, clone, status, add, commit, push, pull, fetch, merge, branch, checkout, log, stash, tag)
-2. Wprowadzenie do GitHub (Issues, Pull Request, Actions)
-3. Wprowadzenie do testów automatycznych (testy jednostkowe, testy integracyjne, technika TDD, nazewnictwo, Arrange-Act-Assert, mocks)
-4. Wprowadzenie do wzorców projektowych (Fabryka, Budowniczy, Adapter, Proxy, Kompozyt, Dekorator, Szablon metody, Strategia, Stan, Łańcuch odpowiedzialności)
+1. **Wprowadzenie Git** (init, clone, status, add, commit, push, pull, fetch, merge, branch, checkout, log, stash, tag)
+2. **Wprowadzenie do GitHub** (Issues, Pull Request, Actions)
+3. **Wprowadzenie do testów automatycznych** (testy jednostkowe, testy integracyjne, technika TDD, nazewnictwo, Arrange-Act-Assert, mocks)
+4. **Wprowadzenie do wzorców projektowych** (Fabryka, Budowniczy, Adapter, Proxy, Kompozyt, Dekorator, Szablon metody, Strategia, Stan, Łańcuch odpowiedzialności)
