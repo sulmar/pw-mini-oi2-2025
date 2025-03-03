@@ -3,12 +3,18 @@
 public class RentTests
 {
     // Method_Scenario_ExpectedBehavior
+
+    private Rent rent;
+
+    public RentTests()
+    { 
+        rent = new Rent(); 
+    }
     
     [Fact]
     public void CanReturn_WhenUserIsAdmin_ShouldReturnsTrue()
     {
         // Arrange
-        Rent rent = new Rent(); 
         
         // Act
         var result = rent.CanReturn(new User { IsAdmin = true });
@@ -21,7 +27,6 @@ public class RentTests
     public void CanReturn_WhenUserIsRentee_ShouldReturnsTrue()
     {
         // Arrange
-        Rent rent = new Rent();
         User rentee = new User();
         rent.Rentee = rentee;
         
@@ -36,9 +41,7 @@ public class RentTests
     public void CanReturn_WhenUserIsNotRenteeAndNotAdmin_ShouldReturnsFalse()
     {
         // Arrange
-        Rent rent = new Rent(); 
-        User rentee = new User();
-        rent.Rentee = rentee;
+        rent.Rentee = new User();
         
         // Act
         var result = rent.CanReturn(new User());
@@ -51,7 +54,6 @@ public class RentTests
     public void CanReturn_WhenUserIsEmpty_ShouldThrowsArgumentNullException()
     {
         // Arrange
-        Rent rent = new Rent();
         
         // Act
         Action act = () => rent.CanReturn(null);
