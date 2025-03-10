@@ -73,5 +73,38 @@ public class DiscountPriceCalculatorTests
        
        Assert.Equal("Invalid coupon code", exception.Message);
    }
+   
+   // 6. Dodaj rabat 50%, który jest naliczany jednorazowo na podstawie kodu z puli kodów.
+
+   [Fact]
+   public void CalculateTotalPrice_WhenCouponCodeIsFistUsaged_ShouldReturnOriginalDiscountedPriceBy50Percent()
+   {
+       // Arrange
+       var discountPriceCalculator = new DiscountPriceCalculator(new FakeCouponCodeRepository());
+       
+       // Act
+       var result = discountPriceCalculator.CalculateTotalPrice(OriginalPrice, "XYZ");
+       
+       // Assert
+       Assert.Equal(50, result);
+   }
+   
+   
+   [Fact]
+   public void CalculateTotalPrice_WhenCouponCodeIsSecondUsaged_ShouldThrowArgumentExceptionWithMessage()
+   {
+       // Arrange
+       var discountPriceCalculator = new DiscountPriceCalculator(new FakeCouponCodeRepository());
+       discountPriceCalculator.CalculateTotalPrice(OriginalPrice, "XYZ");
+       
+       // Act
+       Action act = () => discountPriceCalculator.CalculateTotalPrice(OriginalPrice, "XYZ");
+       
+       // Assert
+       var exception = Assert.Throws<ArgumentException>(act);
+       Assert.Equal("Invalid coupon code", exception.Message);
+   }
+   
+   
     
 }

@@ -1,14 +1,7 @@
 namespace TestApp.TDD;
 
-public class DiscountPriceCalculator
+public class DiscountPriceCalculator(ICouponCodeRepository _couponCodeRepository)
 {
-    private readonly ICouponCodeRepository _couponCodeRepository;
-
-    public DiscountPriceCalculator(ICouponCodeRepository couponCodeRepository)
-    {
-        _couponCodeRepository = couponCodeRepository;
-    }
-    
     public decimal CalculateTotalPrice(decimal originalPrice, string couponCode)
     {
         if (originalPrice < 0)
