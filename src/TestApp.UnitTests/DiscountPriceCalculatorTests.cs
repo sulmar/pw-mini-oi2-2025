@@ -11,7 +11,7 @@ public class DiscountPriceCalculatorTests
     public void CalculateTotalPrice_WhenCouponCodeIsEmpty_ShouldReturnOriginalPrice()
     {
         // Arrange
-        var discountPriceCalculator = new DiscountPriceCalculator();
+        var discountPriceCalculator = new DiscountPriceCalculator(new FakeCouponCodeRepository());
         
         // Act
         var result = discountPriceCalculator.CalculateTotalPrice(OriginalPrice, string.Empty);
@@ -25,7 +25,7 @@ public class DiscountPriceCalculatorTests
     [Fact]
     public void CalculateTotalPrice_WhenCouponCodeIsSAVE10NOW_ShouldReturnDiscountedOriginalPriceBy10Percent()
     {
-        var discountPriceCalculator = new DiscountPriceCalculator();
+        var discountPriceCalculator = new DiscountPriceCalculator(new FakeCouponCodeRepository());
         
         var result = discountPriceCalculator.CalculateTotalPrice(OriginalPrice, "SAVE10NOW");
         
@@ -38,7 +38,7 @@ public class DiscountPriceCalculatorTests
     [Fact]
     public void CalculateTotalPrice_WhenCouponCodeIsDISCOUNT20OFF_ShouldReturnDiscountedOriginalPriceBy20Percent()
     {
-        var discountPriceCalculator = new DiscountPriceCalculator();
+        var discountPriceCalculator = new DiscountPriceCalculator(new FakeCouponCodeRepository());
         
         var result = discountPriceCalculator.CalculateTotalPrice(OriginalPrice, "DISCOUNT20OFF");
         
@@ -51,7 +51,7 @@ public class DiscountPriceCalculatorTests
     [Fact]
     public void CalculateTotalPrice_WhenOriginalPriceIsNegative_ShouldThrowArgumentExceptionWithMessage()
     {
-        var discountPriceCalculator = new DiscountPriceCalculator();
+        var discountPriceCalculator = new DiscountPriceCalculator(new FakeCouponCodeRepository());
         
         Action act = () => discountPriceCalculator.CalculateTotalPrice(-1m, string.Empty);
         

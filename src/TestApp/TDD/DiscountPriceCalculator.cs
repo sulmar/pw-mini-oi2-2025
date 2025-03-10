@@ -2,13 +2,11 @@ namespace TestApp.TDD;
 
 public class DiscountPriceCalculator
 {
-    private IDictionary<string, decimal> _couponCodes;
+    private readonly ICouponCodeRepository _couponCodeRepository;
 
-    public DiscountPriceCalculator()
+    public DiscountPriceCalculator(ICouponCodeRepository couponCodeRepository)
     {
-        _couponCodes = new Dictionary<string, decimal>();
-        _couponCodes.Add("SAVE10NOW", 0.1M);        // 10%
-        _couponCodes.Add("DISCOUNT20OFF", 0.2M);    // 20%
+        _couponCodeRepository = couponCodeRepository;
     }
     
     public decimal CalculateTotalPrice(decimal originalPrice, string couponCode)
@@ -18,8 +16,10 @@ public class DiscountPriceCalculator
         
         if (string.IsNullOrEmpty(couponCode))
             return originalPrice;
-              
-        return originalPrice - originalPrice * _couponCodes[couponCode]; 
+  
+        var couponCodes = _couponCodeRepository.GetAll();
+        
+        return originalPrice - originalPrice * couponCodes[couponCode]; 
         
     }
 }
