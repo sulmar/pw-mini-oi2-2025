@@ -6,8 +6,7 @@ namespace TestApp
 
         public void Log(string message)
         {
-            if (string.IsNullOrWhiteSpace(message))
-                throw new ArgumentNullException();
+            ArgumentNullException.ThrowIfNullOrEmpty(message);
 
             LastMessage = message;
 
