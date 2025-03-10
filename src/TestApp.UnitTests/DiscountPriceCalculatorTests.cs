@@ -61,4 +61,17 @@ public class DiscountPriceCalculatorTests
         
     }
     
+   // 5. W przypadku błędnego kodu powinien być zwracany wyjątek ArgumentException z komunikatem "Invalid coupon code" 
+
+   [Fact]
+   public void CalculateTotalPrice_WhenCouponCodeIsInvalid_ShouldThrowArgumentExceptionWithMessage()
+   {
+       var discountPriceCalculator = new DiscountPriceCalculator(new FakeCouponCodeRepository());
+       
+       Action act = () => discountPriceCalculator.CalculateTotalPrice(OriginalPrice, "a");
+       var exception = Assert.Throws<ArgumentException>(act);
+       
+       Assert.Equal("Invalid coupon code", exception.Message);
+   }
+    
 }

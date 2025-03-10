@@ -19,6 +19,9 @@ public class DiscountPriceCalculator
   
         var couponCodes = _couponCodeRepository.GetAll();
         
+        if (!couponCodes.ContainsKey(couponCode))
+            throw new ArgumentException("Invalid coupon code");
+        
         return originalPrice - originalPrice * couponCodes[couponCode]; 
         
     }
