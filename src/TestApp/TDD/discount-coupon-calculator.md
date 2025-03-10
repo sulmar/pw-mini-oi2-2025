@@ -44,7 +44,7 @@ public record CheckoutRequest(decimal TotalPrice, string? CouponCode);
 ##### Odpowiedź
 ```json
 {
-  "TotalPrice": 300.0
+  "TotalPrice": 100.0
 }
 ```
 
@@ -61,7 +61,7 @@ public record CheckoutRequest(decimal TotalPrice, string? CouponCode);
 ##### Odpowiedź
 ```json
 {
-  "TotalPrice": 270.0
+  "TotalPrice": 90.0
 }
 ```
 
