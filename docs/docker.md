@@ -242,6 +242,6 @@ Teraz aplikacja działa w kontenerze i łączy się z Redisem! 🚀
 
 ## **9. Podsumowanie**
 
-✅ Stworzyliśmy aplikację .NET + REDIS
-✅ Uruchomiliśmy ją w kontenerze Docker
-✅ Stworzyliśmy kompozycję
+- [x] Stworzyliśmy aplikację .NET + REDIS
+- [x] Uruchomiliśmy ją w kontenerze Docker
+- [x] Stworzyliśmy kompozycję
