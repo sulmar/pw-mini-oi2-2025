@@ -1,0 +1,31 @@
+# Pobranie obrazu SDK do budowania aplikacji
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /app
+
+# Kopiowanie plików projektu i przywrócenie zalezności
+COPY *.csproj .
+RUN dotnet restore
+
+# Kopiowanie aplikacji i zbudowanie
+COPY . . 
+RUN dotnet publish -c Release -o /out
+
+# Pobranie obrazu runtinme do uruchomienia aplikacji
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
+WORKDIR /app
+
+# Kopiowanie aplikacji z poprzedniego etapu (build)
+COPY --from=build /out .
+
+# Uruchomienie domyślnej komendy, która uruchomi aplikację
+ENTRYPOINT [ "dotnet", "MyApp.dll" ]
+
+EXPOSE 8080
+
+
+
+
+
+
+
+
