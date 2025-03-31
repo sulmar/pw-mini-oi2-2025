@@ -4,14 +4,22 @@ namespace TestApp.UnitTests;
 
 public class DiscountPriceCalculatorTests
 {
-    private const decimal OriginalPrice = 100m; 
+    private const decimal OriginalPrice = 100m;
+
+    private ICouponCodeRepository repository;
+
+    public DiscountPriceCalculatorTests()
+    {
+        repository = new FakeCouponCodeRepository();
+    }
+        
     
     // 1. W przypadku podania pustego kodu rabat nie będzie udzielany.
     [Fact]
     public void CalculateTotalPrice_WhenCouponCodeIsEmpty_ShouldReturnOriginalPrice()
     {
         // Arrange
-        var discountPriceCalculator = new DiscountPriceCalculator( new DiscountFactory(new FakeCouponCodeRepository()));
+        var discountPriceCalculator = new DiscountPriceCalculator( new DiscountFactory(repository));
         
         // Act
         var result = discountPriceCalculator.CalculateTotalPrice(OriginalPrice, string.Empty);
@@ -25,7 +33,6 @@ public class DiscountPriceCalculatorTests
     [Fact]
     public void CalculateTotalPrice_WhenCouponCodeIsSAVE10NOW_ShouldReturnDiscountedOriginalPriceBy10Percent()
     {
-        ICouponCodeRepository repository = new FakeCouponCodeRepository();
         repository.Add("SAVE10NOW", 0.1m);
         
         var discountPriceCalculator = new DiscountPriceCalculator(new DiscountFactory(repository));
@@ -41,7 +48,6 @@ public class DiscountPriceCalculatorTests
     [Fact]
     public void CalculateTotalPrice_WhenCouponCodeIsDISCOUNT20OFF_ShouldReturnDiscountedOriginalPriceBy20Percent()
     {
-        ICouponCodeRepository repository = new FakeCouponCodeRepository();
         repository.Add("DISCOUNT20OFF", 0.2m);
         var discountPriceCalculator = new DiscountPriceCalculator(new DiscountFactory(repository));
         
@@ -56,7 +62,7 @@ public class DiscountPriceCalculatorTests
     [Fact]
     public void CalculateTotalPrice_WhenOriginalPriceIsNegative_ShouldThrowArgumentExceptionWithMessage()
     {
-        var discountPriceCalculator = new DiscountPriceCalculator(new DiscountFactory(new FakeCouponCodeRepository()));
+        var discountPriceCalculator = new DiscountPriceCalculator(new DiscountFactory(repository));
         
         Action act = () => discountPriceCalculator.CalculateTotalPrice(-1m, string.Empty);
         
@@ -71,7 +77,6 @@ public class DiscountPriceCalculatorTests
    [Fact]
    public void CalculateTotalPrice_WhenCouponCodeIsInvalid_ShouldThrowArgumentExceptionWithMessage()
    {
-       ICouponCodeRepository repository = new FakeCouponCodeRepository();
        repository.Add("b", 0.1m);
        var discountPriceCalculator = new DiscountPriceCalculator(new DiscountFactory(repository));
        
@@ -86,8 +91,6 @@ public class DiscountPriceCalculatorTests
    [Fact]
    public void CalculateTotalPrice_WhenCouponCodeIsFirstUsaged_ShouldReturnOriginalDiscountedPriceBy50Percent()
    {
-       ICouponCodeRepository repository = new FakeCouponCodeRepository();
-       
        // Arrange
        var discountPriceCalculator = new DiscountPriceCalculator(new DecoratorDiscountFactory(new DiscountFactory(repository)));
        
@@ -103,7 +106,6 @@ public class DiscountPriceCalculatorTests
    public void CalculateTotalPrice_WhenCouponCodeIsSecondUsaged_ShouldThrowArgumentExceptionWithMessage()
    {
        // Arrange
-       ICouponCodeRepository repository = new FakeCouponCodeRepository();
        var discountPriceCalculator = new DiscountPriceCalculator(new DecoratorDiscountFactory(new DiscountFactory(repository)));
        discountPriceCalculator.CalculateTotalPrice(OriginalPrice, "XYZ");
        
