@@ -77,7 +77,7 @@ Utwórz kalkulator _DiscountPriceCalculator_ z metodą _CalculateTotalPrice(deci
 3. Dodaj rabat 20%, który będzie naliczany po podaniu kodu kuponu `DISCOUNT20OFF`.
 4. Wywołanie metody _CalculateDiscount_ z ujemną ceną powinno rzucić wyjątkiem _ArgumentException_ z komunikatem _"Negatives not allowed"_.
 5. W przypadku błędnego kodu powinien być zwracany wyjątek _ArgumentException_ z komunikatem _"Invalid discount code"_
-(6. Dodaj rabat 50%, który jest naliczany jednorazowo na podstawie kodu z puli kodów.)
+6. Dodaj rabat 50%, który jest naliczany jednorazowo na podstawie kodu z puli kodów.
 
 
 
