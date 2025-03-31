@@ -25,7 +25,10 @@ public class DiscountPriceCalculatorTests
     [Fact]
     public void CalculateTotalPrice_WhenCouponCodeIsSAVE10NOW_ShouldReturnDiscountedOriginalPriceBy10Percent()
     {
-        var discountPriceCalculator = new DiscountPriceCalculator(new DiscountFactory(new FakeCouponCodeRepository()));
+        ICouponCodeRepository repository = new FakeCouponCodeRepository();
+        repository.Add("SAVE10NOW", 0.1m);
+        
+        var discountPriceCalculator = new DiscountPriceCalculator(new DiscountFactory(repository));
         
         var result = discountPriceCalculator.CalculateTotalPrice(OriginalPrice, "SAVE10NOW");
         
@@ -38,7 +41,9 @@ public class DiscountPriceCalculatorTests
     [Fact]
     public void CalculateTotalPrice_WhenCouponCodeIsDISCOUNT20OFF_ShouldReturnDiscountedOriginalPriceBy20Percent()
     {
-        var discountPriceCalculator = new DiscountPriceCalculator(new DiscountFactory(new FakeCouponCodeRepository()));
+        ICouponCodeRepository repository = new FakeCouponCodeRepository();
+        repository.Add("DISCOUNT20OFF", 0.2m);
+        var discountPriceCalculator = new DiscountPriceCalculator(new DiscountFactory(repository));
         
         var result = discountPriceCalculator.CalculateTotalPrice(OriginalPrice, "DISCOUNT20OFF");
         
@@ -66,7 +71,9 @@ public class DiscountPriceCalculatorTests
    [Fact]
    public void CalculateTotalPrice_WhenCouponCodeIsInvalid_ShouldThrowArgumentExceptionWithMessage()
    {
-       var discountPriceCalculator = new DiscountPriceCalculator(new DiscountFactory(new FakeCouponCodeRepository()));
+       ICouponCodeRepository repository = new FakeCouponCodeRepository();
+       repository.Add("b", 0.1m);
+       var discountPriceCalculator = new DiscountPriceCalculator(new DiscountFactory(repository));
        
        Action act = () => discountPriceCalculator.CalculateTotalPrice(OriginalPrice, "a");
        var exception = Assert.Throws<ArgumentException>(act);
@@ -77,10 +84,12 @@ public class DiscountPriceCalculatorTests
    // 6. Dodaj rabat 50%, który jest naliczany jednorazowo na podstawie kodu z puli kodów.
 
    [Fact]
-   public void CalculateTotalPrice_WhenCouponCodeIsFistUsaged_ShouldReturnOriginalDiscountedPriceBy50Percent()
+   public void CalculateTotalPrice_WhenCouponCodeIsFirstUsaged_ShouldReturnOriginalDiscountedPriceBy50Percent()
    {
+       ICouponCodeRepository repository = new FakeCouponCodeRepository();
+       
        // Arrange
-       var discountPriceCalculator = new DiscountPriceCalculator(new DiscountFactory(new FakeCouponCodeRepository()));
+       var discountPriceCalculator = new DiscountPriceCalculator(new DecoratorDiscountFactory(new DiscountFactory(repository)));
        
        // Act
        var result = discountPriceCalculator.CalculateTotalPrice(OriginalPrice, "XYZ");
@@ -94,7 +103,8 @@ public class DiscountPriceCalculatorTests
    public void CalculateTotalPrice_WhenCouponCodeIsSecondUsaged_ShouldThrowArgumentExceptionWithMessage()
    {
        // Arrange
-       var discountPriceCalculator = new DiscountPriceCalculator(new DiscountFactory(new FakeCouponCodeRepository()));
+       ICouponCodeRepository repository = new FakeCouponCodeRepository();
+       var discountPriceCalculator = new DiscountPriceCalculator(new DecoratorDiscountFactory(new DiscountFactory(repository)));
        discountPriceCalculator.CalculateTotalPrice(OriginalPrice, "XYZ");
        
        // Act

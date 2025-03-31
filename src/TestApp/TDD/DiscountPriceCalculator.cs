@@ -1,6 +1,6 @@
 namespace TestApp.TDD;
 
-public class DiscountPriceCalculator(DiscountFactory discountFactory)
+public class DiscountPriceCalculator(IDiscountFactory discountFactory)
 {
     public decimal CalculateTotalPrice(decimal originalPrice, string couponCode)
     {
@@ -17,7 +17,12 @@ public class DiscountPriceCalculator(DiscountFactory discountFactory)
     }
 }
 
-public class DiscountFactory(ICouponCodeRepository _couponCodeRepository)
+public interface IDiscountFactory
+{
+    decimal Create(string couponCode);
+}
+
+public class DiscountFactory(ICouponCodeRepository _couponCodeRepository) : IDiscountFactory
 {
     public decimal Create(string couponCode)
     {

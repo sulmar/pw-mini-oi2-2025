@@ -7,8 +7,12 @@ public class FakeCouponCodeRepository : ICouponCodeRepository
     public FakeCouponCodeRepository()
     {
         _couponCodes = new Dictionary<string, decimal>();
-        _couponCodes.Add("SAVE10NOW", 0.1M);        // 10%
-        _couponCodes.Add("DISCOUNT20OFF", 0.2M);    // 20%
+     
+    }
+
+    public void Add(string couponCode, decimal discountPrice)
+    {
+        _couponCodes.Add(couponCode, discountPrice);
     }
     
     public IDictionary<string, decimal> GetAll()
