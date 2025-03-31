@@ -1,6 +1,6 @@
 namespace TestApp.TDD;
 
-public class DiscountPriceCalculator(ICouponCodeRepository _couponCodeRepository)
+public class DiscountPriceCalculator(DiscountFactory discountFactory)
 {
     public decimal CalculateTotalPrice(decimal originalPrice, string couponCode)
     {
@@ -9,13 +9,24 @@ public class DiscountPriceCalculator(ICouponCodeRepository _couponCodeRepository
         
         if (string.IsNullOrEmpty(couponCode))
             return originalPrice;
-  
+        
+        var discount = discountFactory.Create(couponCode);
+        
+        return originalPrice - originalPrice * discount; 
+        
+    }
+}
+
+public class DiscountFactory(ICouponCodeRepository _couponCodeRepository)
+{
+    public decimal Create(string couponCode)
+    {
         var couponCodes = _couponCodeRepository.GetAll();
         
         if (!couponCodes.ContainsKey(couponCode))
             throw new ArgumentException("Invalid coupon code");
-        
-        return originalPrice - originalPrice * couponCodes[couponCode]; 
-        
+
+        return couponCodes[couponCode];
+
     }
 }
