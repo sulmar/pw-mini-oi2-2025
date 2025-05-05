@@ -29,4 +29,6 @@ stateDiagram-v2
 	Selected --> Idle : Timeout
 	Selected --> Idle : Cancel
 	Processing --> Idle : Confirm
-[*] --> Idle```
+[*] --> Idle
+```
+
