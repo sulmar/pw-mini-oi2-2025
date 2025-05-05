@@ -19,7 +19,7 @@ git clone https://github.com/sulmar/pw-mini-io2-2025
 4. **Wprowadzenie do wzorców projektowych** (Fabryka, Budowniczy, Adapter, Proxy, Kompozyt, Dekorator, Szablon metody, Strategia, Stan, Łańcuch odpowiedzialności)
 
 
-## Graph
+## Maszyna stanów skończonych
 ```mermaid
 stateDiagram-v2
 	Idle --> Selected : Select
