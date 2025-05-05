@@ -59,6 +59,36 @@ public class AutomatTests
         // Assert
         Assert.Equal(State.Selected, sut.CurrentState);
     }
+
+    [Fact]
+    public async void InsertCoin_WhenTimeoutElapsed_ShouldStateIsIdle()
+    {
+        // Arrange
+        var sut = new Automat();
+        sut.Select(1);
+        
+        // Act
+        await Task.Delay(Automat.ElapsedTime + TimeSpan.FromSeconds(1));
+        
+        // Assert
+        Assert.Equal(State.Idle, sut.CurrentState);
+        
+    }
+    
+    [Fact]
+    public async void InsertCoin_WhenTimeoutNotElapsed_ShouldStateIsSelected()
+    {
+        // Arrange
+        var sut = new Automat();
+        sut.Select(1);
+        
+        // Act
+        await Task.Delay(Automat.ElapsedTime - TimeSpan.FromSeconds(1));
+        
+        // Assert
+        Assert.Equal(State.Selected, sut.CurrentState);
+        
+    }
     
     [Fact]
     public void Graph_WhenCalled_ShouldReturnGraph()
