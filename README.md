@@ -17,3 +17,18 @@ git clone https://github.com/sulmar/pw-mini-io2-2025
 2. **Wprowadzenie do GitHub** (Issues, Pull Request, Actions)
 3. **Wprowadzenie do testów automatycznych** (testy jednostkowe, testy integracyjne, technika TDD, nazewnictwo, Arrange-Act-Assert, mocks)
 4. **Wprowadzenie do wzorców projektowych** (Fabryka, Budowniczy, Adapter, Proxy, Kompozyt, Dekorator, Szablon metody, Strategia, Stan, Łańcuch odpowiedzialności)
+
+
+## Graph
+
+```mermaid
+stateDiagram-v2
+	Idle --> Selected : Select
+	Selected --> Processing : InsertCoin [Function]
+	Selected --> Selected : InsertCoin [Function]
+	Selected --> Processing : InsertCard
+	Selected --> Idle : Timeout
+	Selected --> Idle : Cancel
+	Processing --> Idle : Confirm
+[*] --> Idle
+```
