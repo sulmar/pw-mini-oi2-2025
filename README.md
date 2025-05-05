@@ -20,15 +20,13 @@ git clone https://github.com/sulmar/pw-mini-io2-2025
 
 
 ## Graph
-
 ```mermaid
 stateDiagram-v2
 	Idle --> Selected : Select
-	Selected --> Processing : InsertCoin [Function]
-	Selected --> Selected : InsertCoin [Function]
+	Selected --> Processing : InsertCoin [Kwota zebrana]
+	Selected --> Selected : InsertCoin [Niepełna kwota]
 	Selected --> Processing : InsertCard
 	Selected --> Idle : Timeout
 	Selected --> Idle : Cancel
 	Processing --> Idle : Confirm
-[*] --> Idle
-```
+[*] --> Idle```
