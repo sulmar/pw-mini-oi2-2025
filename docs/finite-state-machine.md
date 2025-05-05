@@ -203,3 +203,11 @@ Format ten może być renderowany przez GitHub markdown lub silnik aplikacji **O
 - Obsługa wejścia/wyjścia (`OnEntry`, `OnExit`)
     
 - Wsparcie dla hierarchii stanów i stanów podległych
+
+
+## Biblioteki dla innych języków programowania
+
+- C++ [Automaton](https://github.com/tinkerspy/Automaton)
+
+ Przykład:
+ https://github.com/tinkerspy/Automaton/blob/master/examples/blink/blink.ino
