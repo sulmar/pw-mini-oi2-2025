@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("Hello, SignalR Client!");
 
 // dotnet add package Microsoft.AspNetCore.SignalR.Client
 
@@ -23,8 +23,6 @@ Console.WriteLine("Press any key to exit.");
 Console.Read();
 
 await connection.StopAsync();
-
-
 
 record Order
 {
